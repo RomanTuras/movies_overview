@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 import 'package:movies_overview/presentation/core/themes/dimens.dart';
 import 'package:movies_overview/presentation/home/view_models/home_viewmodel.dart';
 import 'package:movies_overview/presentation/widgets/result_card.dart';
@@ -75,7 +76,7 @@ class _Grid extends StatelessWidget {
             key: ValueKey(movie.posterPath),
             movie: movie,
             onTap: () {
-              // viewModel.updateItineraryConfig.execute(destination.ref);
+              context.go('/movie/${viewModel.movies[index].id}');
             },
           );
         },
