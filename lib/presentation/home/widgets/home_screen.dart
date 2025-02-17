@@ -1,19 +1,18 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
-import 'package:movies_overview/presentation/core/themes/dimens.dart';
 import 'package:movies_overview/presentation/home/view_models/home_viewmodel.dart';
-import 'package:movies_overview/presentation/widgets/result_card.dart';
+import 'package:movies_overview/presentation/widgets/movie_card.dart';
 
-class HomePage extends StatefulWidget {
-  const HomePage({super.key, required this.viewmodel});
+class HomeScreen extends StatefulWidget {
+  const HomeScreen({super.key, required this.viewmodel});
 
   final HomeViewmodel viewmodel;
 
   @override
-  State<HomePage> createState() => _HomePageState();
+  State<HomeScreen> createState() => _HomeScreenState();
 }
 
-class _HomePageState extends State<HomePage> {
+class _HomeScreenState extends State<HomeScreen> {
   @override
   Widget build(BuildContext context) {
     return SafeArea(
@@ -39,7 +38,8 @@ class _HomePageState extends State<HomePage> {
               listenable: widget.viewmodel,
               builder: (context, child) {
                 return Padding(
-                  padding: Dimens.of(context).edgeInsetsScreenHorizontal,
+                  padding:
+                      EdgeInsets.symmetric(horizontal: 10.0, vertical: 15.0),
                   child: CustomScrollView(
                     slivers: [
                       _Grid(viewModel: widget.viewmodel),
@@ -67,12 +67,12 @@ class _Grid extends StatelessWidget {
         crossAxisCount: 2,
         crossAxisSpacing: 8.0,
         mainAxisSpacing: 8.0,
-        childAspectRatio: 30 / 47,
+        childAspectRatio: 30 / 46,
       ),
       delegate: SliverChildBuilderDelegate(
         (context, index) {
           final movie = viewModel.movies[index];
-          return ResultCard(
+          return MovieCard(
             key: ValueKey(movie.posterPath),
             movie: movie,
             onTap: () {

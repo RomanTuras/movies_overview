@@ -29,7 +29,7 @@ class MovieApiService {
 
       if (response.statusCode == 200) {
         final Map<String, dynamic> data = json.decode(response.body);
-        // _log.info(data['results']);
+        // _log.info(data);
         return Result.ok(data['results']
             .map<MovieModel>((json) => MovieModel.fromJson(json))
             .toList());

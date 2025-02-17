@@ -1,9 +1,9 @@
 import 'package:flutter/cupertino.dart';
 import 'package:go_router/go_router.dart';
 import 'package:movies_overview/data/repositories/auth/auth_repository.dart';
-import 'package:movies_overview/presentation/home/home_page.dart';
+import 'package:movies_overview/presentation/home/widgets/home_screen.dart';
 import 'package:movies_overview/presentation/home/view_models/home_viewmodel.dart';
-import 'package:movies_overview/presentation/movie/movie_page.dart';
+import 'package:movies_overview/presentation/movie/widgets/movie_screen.dart';
 import 'package:movies_overview/presentation/movie/view_models/movie_viewmodel.dart';
 import 'routes.dart';
 import 'package:provider/provider.dart';
@@ -19,17 +19,15 @@ GoRouter router(AuthRepository authRepository) => GoRouter(
               final viewModel = HomeViewmodel(
                 movieRepository: context.read(),
               );
-              return HomePage(viewmodel: viewModel);
+              return HomeScreen(viewmodel: viewModel);
             }),
         GoRoute(
             path: '/movie/:id',
             builder: (context, state) {
               final id = int.parse(state.pathParameters['id']!);
-              final viewModel = MovieViewmodel(
-                movieRepository: context.read(),
-                id: id
-              );
-              return MoviePage(viewmodel: viewModel);
+              final viewModel =
+                  MovieViewmodel(movieRepository: context.read(), id: id);
+              return MovieScreen(viewModel: viewModel);
             })
       ],
     );

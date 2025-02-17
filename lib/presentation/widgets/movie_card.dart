@@ -6,8 +6,8 @@ import 'package:movies_overview/domain/entities/movie.dart';
 import '../../utils/image_error_listener.dart';
 // import '../../core/ui/tag_chip.dart';
 
-class ResultCard extends StatelessWidget {
-  const ResultCard({
+class MovieCard extends StatelessWidget {
+  const MovieCard({
     super.key,
     required this.movie,
     required this.onTap,
@@ -19,7 +19,7 @@ class ResultCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return ClipRRect(
-      borderRadius: BorderRadius.circular(10.0),
+      borderRadius: BorderRadius.circular(15.0),
       child: Stack(
         fit: StackFit.expand,
         children: [
@@ -30,27 +30,36 @@ class ResultCard extends StatelessWidget {
             errorListener: imageErrorListener,
           ),
           Positioned(
-            bottom: 12.0,
-            left: 12.0,
-            right: 12.0,
+            bottom: 0,
+            left: 0,
+            right: 0,
             child: Column(
               mainAxisSize: MainAxisSize.min,
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                Text(
-                  movie.title.toUpperCase(),
-                  style: _cardTitleStyle,
+                Container(
+                  width: double.infinity,
+                  decoration: BoxDecoration(
+                    gradient: LinearGradient(
+                      colors: [
+                        Colors.black.withAlpha(255),
+                        Colors.transparent,
+                      ],
+                      begin: Alignment.bottomCenter,
+                      end: Alignment.topCenter,
+                    ),
+                  ),
+                  padding: const EdgeInsets.all(8.0),
+                  child: Text(
+                    movie.title,
+                    style: const TextStyle(
+                      color: Colors.orange,
+                      fontSize: 20,
+                      fontWeight: FontWeight.bold,
+                    ),
+                    overflow: TextOverflow.ellipsis,
+                  ),
                 ),
-                const SizedBox(
-                  height: 6,
-                ),
-                // Wrap(
-                //   spacing: 4.0,
-                //   runSpacing: 4.0,
-                //   direction: Axis.horizontal,
-                //   children:
-                //       movie.tags.map((e) => TagChip(tag: e)).toList(),
-                // ),
               ],
             ),
           ),
