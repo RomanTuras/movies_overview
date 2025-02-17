@@ -29,7 +29,28 @@ class MovieApiService {
 
       if (response.statusCode == 200) {
         final Map<String, dynamic> data = json.decode(response.body);
-        // _log.info(data);
+        _log.info('fetchMovies');
+        return Result.ok(data['results']
+            .map<MovieModel>((json) => MovieModel.fromJson(json))
+            .toList());
+      } else {
+        return Result.error(HttpException('Invalid response'));
+      }
+    } on Exception catch (error) {
+      return Result.error(error);
+    }
+  }
+
+  Future<Result<List<MovieModel>>> searchMovies(String query) async {
+    try {
+      final response = await http.get(
+          Uri.parse(
+              '$moviesAPIBaseURL/search/movie?query=$query&language=$language&include_adult=$adult&page=1'),
+          headers: _headers);
+
+      if (response.statusCode == 200) {
+        final Map<String, dynamic> data = json.decode(response.body);
+        _log.info('searchMovies');
         return Result.ok(data['results']
             .map<MovieModel>((json) => MovieModel.fromJson(json))
             .toList());

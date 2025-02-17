@@ -10,8 +10,9 @@ class MovieHeader extends StatelessWidget {
   final Movie movie;
   const MovieHeader({super.key, required this.movie});
 
-  String getDate(String date) {
-    final date = DateTime.parse(movie.releaseDate);
+  String getDate(String movieDate) {
+    if (movieDate == "") return '-';
+    final date = DateTime.parse(movieDate);
     return date.year.toString();
   }
 

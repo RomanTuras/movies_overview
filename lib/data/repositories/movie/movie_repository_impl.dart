@@ -24,13 +24,22 @@ class MovieRepositoryImpl implements MovieRepository {
   }
 
   @override
+  Future<Result<List<MovieModel>>> searchMovies(String query) async {
+    final result = await _apiService.searchMovies(query);
+    if (result is Ok<List<MovieModel>>) {
+      _cachedData = result.value;
+    }
+    return result;
+  }
+
+  @override
   Future<Result<MovieModel>> fetchMovie(int id) async {
     // if (_cachedData == null) {
-      final result = await _apiService.fetchMovie(id);
-      // if (result is Ok<MovieModel>) {
-        // _cachedData = result.value;
-      // }
-      return result;
+    final result = await _apiService.fetchMovie(id);
+    // if (result is Ok<MovieModel>) {
+    // _cachedData = result.value;
+    // }
+    return result;
     // } else {
     //   return Result.ok(_cachedData!);
     // }
